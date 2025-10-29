@@ -1,0 +1,122 @@
+# =========================
+# Global / OS
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor settings (keep team-wide settings in .editorconfig instead)
+.vscode/
+.idea/
+*.code-workspace
+
+# =========================
+# Build outputs (all stacks)
+# =========================
+publish/
+dist/
+build/
+out/
+coverage/
+*.log
+logs/
+
+# =========================
+# .NET / Visual Studio
+# =========================
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.ilk
+*.pdb
+*.cache
+*.svclog
+TestResult*/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# ASP.NET generated
+App_Data/
+Generated\ Files/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+project.lock.json
+artifacts/
+.nuget/
+
+# Rider
+.ReSharper*/
+*_Resharper.*/
+*.DotSettings.user
+
+# =========================
+# Node / Frontend
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+.npmrc
+.next/
+.nuxt/
+.svelte-kit/
+storybook-static/
+.cache/
+.eslintcache
+
+# Common frontend build dirs
+.tmp/
+.temp/
+.sass-cache/
+
+# Vite / Vue / Angular
+dist-ssr/
+*.local
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+pip-wheel-metadata/
+.eggs/
+*.egg-info/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.coverage
+htmlcov/
+
+# =========================
+# Containers & tooling
+# =========================
+.env
+.env.*
+.dockerignore
+Dockerfile.*.local
+
+# =========================
+# GitHub / CI
+# =========================
+# Ignore local runner artifacts if any
+.runner/
+actions-runner/
+# Keep workflow files!
+!.github/
+!.github/workflows/
