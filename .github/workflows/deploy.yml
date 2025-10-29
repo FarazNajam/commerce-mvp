@@ -1,1 +1,54 @@
 
+name: Build & Deploy Web Apps
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "services/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    # --- Single-app run: orders-api only ---
+    env:
+      APP_NAME: orders-api
+      APP_PATH: services/orders-api
+      PUBLISH_SECRET: AZUREAPPSERVICE_PUBLISH_PROFILE_ORDERS
+
+    defaults:
+      run:
+        working-directory: ${{ env.APP_PATH }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # ---------- BUILD (.NET 8) ----------
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: |
+          if [ -d "tests" ]; then dotnet test --configuration Release --no-build; else echo "No tests"; fi
+
+      - name: Publish
+        run: dotnet publish -c Release -o ./publish
+
+      # ---------- DEPLOY ----------
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.APP_NAME }}
+          publish-profile: ${{ secrets[env.PUBLISH_SECRET] }}
+          package: ${{ env.APP_PATH }}/publish
