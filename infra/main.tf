@@ -7,7 +7,9 @@ terraform {
   }
 }
 
-provider "azurerm" { features {} }
+provider "azurerm" {
+  features {}
+}
 
 # Use an existing Resource Group
 data "azurerm_resource_group" "rg" {
@@ -19,7 +21,7 @@ resource "azurerm_service_plan" "asp" {
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   os_type             = "Linux"
-  sku_name            = var.sku_name           # e.g., F1, B1, P1v3
+  sku_name            = var.sku_name
 }
 
 resource "azurerm_linux_web_app" "app" {
@@ -33,7 +35,7 @@ resource "azurerm_linux_web_app" "app" {
 
   site_config {
     application_stack {
-      dotnet_version = "8.0"                  # change if not .NET
+      dotnet_version = "8.0"
     }
   }
 }
