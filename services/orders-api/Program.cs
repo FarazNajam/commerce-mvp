@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/", () => Results.Ok(new { app = "orders-api", status = "ok" }));
+app.MapGet("/", () => Results.Ok(new { app = "web-homelab-dev", status = "ok" }));
 app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.Run();
