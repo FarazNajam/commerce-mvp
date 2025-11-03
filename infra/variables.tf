@@ -9,9 +9,9 @@ variable "location" {
   description = "Location; defaults to RG location if null"
 }
 
-variable "app_service_plan_name" {
+variable "name-prefix" {
   type = string
-  default = "homelab-commerce-mvp-${random_string.random}"
+  default = "homelab-commerce-mvp"
 }
 
 variable "web_app_name" {
