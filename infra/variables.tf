@@ -11,6 +11,7 @@ variable "location" {
 
 variable "app_service_plan_name" {
   type = string
+  default = "homelab-commerce-mvp-${random_string.random}"
 }
 
 variable "web_app_name" {
