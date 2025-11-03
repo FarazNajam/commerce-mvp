@@ -20,7 +20,7 @@ variable "web_app_name" {
 
 variable "sku_name" {
   type    = string
-  default = "B1"
+  default = "F1"
   description = "Plan SKU (F1/B1/P1v3 etc.)"
 }
 
