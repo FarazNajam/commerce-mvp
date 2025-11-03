@@ -22,7 +22,7 @@ data "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_service_plan" "asp" {
-  name                = "${var.name-prefix}-${random_string.random}"
+  name                = "${var.name_prefix}-${random_string.random}"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   os_type             = "Linux"

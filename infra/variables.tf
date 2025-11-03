@@ -5,11 +5,11 @@ variable "resource_group_name" {
 
 variable "location" {
   type        = string
-  default     = null
+  default     = australiaeast
   description = "Location; defaults to RG location if null"
 }
 
-variable "name-prefix" {
+variable "name_prefix" {
   type = string
   default = "homelab-commerce-mvp"
 }
