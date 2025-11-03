@@ -5,7 +5,7 @@ variable "resource_group_name" {
 
 variable "location" {
   type        = string
-  default     = australiaeast
+  default     = "australiaeast"
   description = "Location; defaults to RG location if null"
 }
 
