@@ -16,23 +16,24 @@ resource "random_string" "random" {
   special          = false
 }
 
-# Use an existing Resource Group
-data "azurerm_resource_group" "rg" {
-  name = var.resource_group_name
+# Resource Group
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
+  location = var.location
 }
 
 resource "azurerm_service_plan" "asp" {
   name                = "${var.name_prefix}-${random_string.random}"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
-  os_type             = "Linux"
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  os_type             = var.os_type
   sku_name            = var.sku_name
 }
 
 resource "azurerm_linux_web_app" "app" {
   name                = var.web_app_name
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
   service_plan_id     = azurerm_service_plan.asp.id
   https_only          = true
 
