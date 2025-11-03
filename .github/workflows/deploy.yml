@@ -15,7 +15,7 @@ jobs:
     # --- Single-app run: orders-api only ---
     env:
       APP_NAME: web-homelab-dev
-      APP_PATH: services/web-homelab-dev
+      APP_PATH: services/orders-api
       PUBLISH_SECRET: AZUREAPPSERVICE_PUBLISH_PROFILE_ORDERS
 
     defaults:
