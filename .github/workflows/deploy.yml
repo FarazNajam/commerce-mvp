@@ -8,6 +8,11 @@ on:
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
+# Required for OIDC login from GitHub to Azure
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -16,14 +21,14 @@ jobs:
     env:
       APP_NAME: web-homelab-dev
       APP_PATH: services/orders-api
-      PUBLISH_SECRET: AZUREAPPSERVICE_PUBLISH_PROFILE_ORDERS
 
     defaults:
       run:
         working-directory: ${{ env.APP_PATH }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       # ---------- BUILD (.NET 8) ----------
       - name: Setup .NET
@@ -45,9 +50,15 @@ jobs:
         run: dotnet publish -c Release -o ./publish
 
       # ---------- DEPLOY ----------
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.APP_NAME }}
-          publish-profile: ${{ secrets[env.PUBLISH_SECRET] }}
           package: ${{ env.APP_PATH }}/publish
