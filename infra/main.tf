@@ -40,7 +40,7 @@ module "key_vault" {
   source = "./modules/key_vault"
 
   name                = "kv-dev-01"                      # must be globally unique
-  location            = azurerm_resource_group.rg_kv.location
-  resource_group_name = azurerm_resource_group.rg_kv.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
   tenant_id           = data.azurerm_client_config.current.tenant_id
 }
