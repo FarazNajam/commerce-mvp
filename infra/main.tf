@@ -31,10 +31,10 @@ data "azurerm_client_config" "current" {}
 # Example resource group for the Key Vault
 # (You can rename this to whatever convention you like)
 resource "azurerm_resource_group" "rg_kv" {
-  name     = "rg-kv-dev-01"
+  name     = var.resource_group_name
   location = "australiaeast"
 }
-
+#
 # Key Vault module
 module "key_vault" {
   source = "./modules/key_vault"
