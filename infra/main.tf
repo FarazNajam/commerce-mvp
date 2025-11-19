@@ -44,3 +44,16 @@ module "key_vault" {
   resource_group_name = var.resource_group_name
   tenant_id           = data.azurerm_client_config.current.tenant_id
 }
+
+# Virtual Network Module
+module "virtual_network" {
+  source = "./modules/Network"
+
+  virtual_network_name = var.virtual_network_name                      # must be globally unique
+  location             = var.location
+  resource_group_name  = var.resource_group_name
+  NSG_name             = var.NSG_name
+  address_space        = var.address_space
+  address_prefix       = var.address_prefix
+  subnet1              = var.subnet1
+}
