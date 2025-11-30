@@ -1,0 +1,37 @@
+name: Destroy App Service (Terraform)
+
+on:
+  workflow_dispatch:   # manual run only
+
+permissions:
+  id-token: write      # same as your apply workflow (for OIDC)
+  contents: read
+
+env:
+  ARM_USE_OIDC: true
+  ARM_TENANT_ID:       ${{ secrets.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_CLIENT_ID:       ${{ secrets.AZURE_CLIENT_ID }}
+
+jobs:
+  tf-destroy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: WhoAmI (optional)
+        run: |
+          echo "ClientId: $ARM_CLIENT_ID"
+          echo "Sub: $ARM_SUBSCRIPTION_ID"
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -var-file=dev.tfvars
